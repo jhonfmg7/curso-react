@@ -1,7 +1,7 @@
 Aplication for react course example
 ## Author: Jhon Mármol
 ## Geologist, Programmer & Software Developer
-Portfolio & Personal Web (http://jhonmarmol.pythonanywhere.com).
+[Portfolio & Personal Web](http://jhonmarmol.pythonanywhere.com).
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
