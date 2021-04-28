@@ -1,0 +1,27 @@
+{
+  "sales": [
+    {
+      "id": 1,
+      "date": "2021-04-28",
+      "quantity": 2,
+      "product": "Celular Huawei Y7",
+      "ref": "Venta hecha a mi hermano",
+      "price": 500000,
+      "cost": 350000,
+      "total": 1000000,
+      "gain": 300000
+    },
+    {
+      "date": "2021-04-28",
+      "quantity": "10",
+      "product": "S21",
+      "productId": 0,
+      "ref": "Test",
+      "price": "100000",
+      "cost": "50000",
+      "total": 1000000,
+      "gain": 500000,
+      "id": 4
+    }
+  ]
+}

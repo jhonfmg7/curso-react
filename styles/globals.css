@@ -27,3 +27,14 @@ h1 {
     width: 60px;
     border-radius: 50%;
 }
+
+.icon-button {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    align-items: center;
+    padding: 2px 0 0 2px;
+    color: white;
+    border-radius: 50%;
+}
