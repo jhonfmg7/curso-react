@@ -12,7 +12,7 @@ const NavBar = ({ children }) => {
                         </Link>
                     </div>
                     <div className="col-md-4 col-sm-12  text-center">
-                        <Link href="/example">
+                        <Link href="/inventory">
                             <a className="nav-link">Inventario</a>
                         </Link>
                     </div>

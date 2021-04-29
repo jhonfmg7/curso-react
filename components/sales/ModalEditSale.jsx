@@ -1,13 +1,10 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { useSnackbar } from "notistack";
+import { Dialog, DialogContent, DialogTitle } from "@material-ui/core"
+import axios from "axios";
 
-// Material UI Components
-import { Dialog, DialogContent, DialogTitle, MenuItem, Select } from "@material-ui/core"
-import { useEffect } from "react";
-
-const ModalAddSale = ({ setReload, openModalSale, setOpenModalSale }) => {
-
+const ModalEditSale = ({ idToEdit, setReload, openModalEditSale, setOpenModalEditSale }) => {
+    
     // Date Instance
     const date = new Date();
     const day =
@@ -33,9 +30,6 @@ const ModalAddSale = ({ setReload, openModalSale, setOpenModalSale }) => {
         price: 0,
         cost: 0
     });
-    const [ products, setProducts ] = useState([]);
-    const [ idToReduce, setIdToReduce ] = useState(0);
-    const [ quantityToValidate, setQuantityToValidate ] = useState(0)
 
     // Function to handle change
     const handleChange = (e) => {
@@ -45,33 +39,18 @@ const ModalAddSale = ({ setReload, openModalSale, setOpenModalSale }) => {
         })
     } 
 
-    // UseEffect for load products
     useEffect(() => {
         const query = async() => {
-            const response = await axios.get('http://localhost:4000/products');
-            setProducts(response.data);
+            const response = await axios.get(`http://localhost:4000/sales/${ idToEdit }`);
+            setInfo(response.data);
         }
 
-        query();
-    }, []);
-
-    useEffect(() => {
-        if(info.product !== '') {
-            const response = products.filter( item => item.name === info.product);
-            if(response.length > 0) {
-                setInfo({
-                    ...info,
-                    cost: response[0].cost,
-                    price: response[0].price,
-                    productId: response[0].id
-                });
-                setIdToReduce(response[0].id);
-                setQuantityToValidate(Number(response[0].quantity))
-            }
+        if(idToEdit !== 0) {
+            query();
         }
-    }, [info.product])
+    }, [ idToEdit ]);
 
-    // Function to Handle Submit
+    // Function to Submit Info
     const onSubmit = async(e) => {
         e.preventDefault();
 
@@ -84,39 +63,25 @@ const ModalAddSale = ({ setReload, openModalSale, setOpenModalSale }) => {
         }
 
         try {
-          const response = await axios.post('http://localhost:4000/sales', obj);
-          if (Object.keys(response.data).length > 0) {
-
-            const result = await axios.get(`http://localhost:4000/products/${ idToReduce }`)
-
-            const objEdit = {
-                name: result.data.name,
-                quantity: result.data.quantity - info.quantity,
-                price: result.data.price,
-                cost: result.data.cost
+            const response = await axios.put(`http://localhost:4000/sales/${ idToEdit }`, obj);
+            if(Object.keys(response.data).length > 0) {
+                setReload(true);
+                setOpenModalEditSale(false);
+                enqueueSnackbar('Se logró editar la Venta', { variant: 'success' });
             }
-            
-            await axios.put(`http://localhost:4000/products/${ idToReduce }`, objEdit);
-
-              setOpenModalSale(false);
-              setReload(true);
-              enqueueSnackbar('Se registró correctamente la venta', { variant: 'success' })
-          }
         } catch (error) {
-            enqueueSnackbar('No se logro registrar la venta', { variant: 'error' })
+            enqueueSnackbar('No se logró editar la Venta', { variant: 'danger' });
         }
     }
-
+    
     return (
         <Dialog
-            open={ openModalSale }
-            onClose={ () => setOpenModalSale(false) }
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            maxWidth={ 'lg' }
+            open={ openModalEditSale }
+            onClose={ () => setOpenModalEditSale(false) }
+            maxWidth={ 'md' }
             fullWidth
         >
-            <DialogTitle className="text-center text-success">Agregar Venta</DialogTitle>
+            <DialogTitle>Editar Venta { idToEdit }</DialogTitle>
             <DialogContent>
                 <form>
                     <div className="row">
@@ -131,21 +96,15 @@ const ModalAddSale = ({ setReload, openModalSale, setOpenModalSale }) => {
                                 <label>Producto</label>
                                 <select className="form-control" name="product" value={ info.product } onChange={ handleChange }>
                                     <option value="">Seleccione una opción</option>
-                                    { products.map( item => (
-                                        <option value={ item.name }>{ item.name }</option>
-                                    ) ) }
+                                    <option value="S21">Samsung Galaxy S21 Ultra</option>
+                                    <option value="Celular Huawei Y7">Huawei Y7</option>
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-4 col-sm-12">
                             <div className="form-group">
                                 <label>Cantidad</label>
-                                <select name="quantity" value={ info.quantity } onChange={ handleChange } className="form-control">
-                                    <option value="">Seleccione la cantidad</option>
-                                    { [...Array(quantityToValidate).keys()].map( item => (
-                                        <option value={ item + 1 }>{ item + 1 }</option>
-                                    ) ) }
-                                </select>
+                                <input type="number" name="quantity" value={ info.quantity } onChange={ handleChange } className="form-control"/>
                             </div>
                         </div>
                         <div className="col-md-4 col-sm-12 my-3">
@@ -170,7 +129,7 @@ const ModalAddSale = ({ setReload, openModalSale, setOpenModalSale }) => {
                     <div className="row my-3">
                         <div className="col-md-10"></div>
                         <div className="col-md-2 col-sm-12">
-                            <button className="btn btn-outline-success" type="submit" onClick={ (e) => onSubmit(e) }>Registrar Venta</button>
+                            <button className="btn btn-outline-success" type="submit" onClick={ (e) => onSubmit(e) }>Editar Venta</button>
                         </div>
                     </div>
                 </form>
@@ -179,4 +138,4 @@ const ModalAddSale = ({ setReload, openModalSale, setOpenModalSale }) => {
     )
 }
 
-export default ModalAddSale
+export default ModalEditSale

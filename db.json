@@ -3,25 +3,65 @@
     {
       "id": 1,
       "date": "2021-04-28",
-      "quantity": 2,
+      "quantity": "4",
       "product": "Celular Huawei Y7",
       "ref": "Venta hecha a mi hermano",
       "price": 500000,
       "cost": 350000,
-      "total": 1000000,
-      "gain": 300000
+      "total": 2000000,
+      "gain": 600000
     },
     {
       "date": "2021-04-28",
-      "quantity": "10",
+      "quantity": "20",
       "product": "S21",
       "productId": 0,
-      "ref": "Test",
-      "price": "100000",
-      "cost": "50000",
-      "total": 1000000,
-      "gain": 500000,
+      "ref": "Test Editado",
+      "price": "1200000",
+      "cost": "420000",
+      "total": 24000000,
+      "gain": 15600000,
       "id": 4
+    },
+    {
+      "date": "2021-04-29",
+      "quantity": "2",
+      "product": "S21",
+      "productId": 0,
+      "ref": "Test 29 04",
+      "price": "1400000",
+      "cost": "100000",
+      "total": 2800000,
+      "gain": 2600000,
+      "id": 5
+    },
+    {
+      "date": "2021-04-29",
+      "quantity": "10",
+      "product": "Samsung S21",
+      "productId": 2,
+      "ref": "Prueba de Venta con Inventario",
+      "price": 600000,
+      "cost": 350000,
+      "total": 6000000,
+      "gain": 2500000,
+      "id": 6
+    }
+  ],
+  "products": [
+    {
+      "name": "Huawei Y7",
+      "quantity": 10,
+      "price": 600000,
+      "cost": 350000,
+      "id": 1
+    },
+    {
+      "name": "Samsung S21",
+      "quantity": 10,
+      "price": 600000,
+      "cost": 350000,
+      "id": 2
     }
   ]
 }
